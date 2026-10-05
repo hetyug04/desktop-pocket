@@ -10,7 +10,7 @@
 
 ## Download, extract, double-click
 
-1. On the repository page, choose **Code → Download ZIP**. Extract the entire ZIP into a permanent local folder. Do not run scripts inside the ZIP. Alternatively, clone the repository.
+1. Download the [Windows package](https://github.com/hetyug04/desktop-pocket/raw/refs/heads/main/downloads/DesktopPocket-Windows.zip) (recommended). Alternatively, choose **Code → Download ZIP** on the repository page or clone it. Extract the entire ZIP into a permanent local folder; do not run scripts inside the ZIP.
 2. Double-click **SETUP.cmd**. Follow Windows/installer prompts if prerequisites need installing. Sign into Tailscale on the PC when requested.
 3. A local QR page opens automatically. If your phone needs Tailscale, expand **Need Tailscale on your phone?** and scan the appropriate download QR. Sign into the same account on your phone and connect it.
 4. Scan the large setup QR with your phone camera. Tap **Create passkey** and approve Face ID/Windows Hello. There is no address or enrollment code to type.

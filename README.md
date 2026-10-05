@@ -4,6 +4,8 @@ Your Windows desktop, terminal, shared files, and clipboard on your phone — pr
 
 **Windows 10/11 x64 · Phone-first web app · Private Tailscale HTTPS · QR-first setup**
 
+**[Download Windows package](https://github.com/hetyug04/desktop-pocket/raw/refs/heads/main/downloads/DesktopPocket-Windows.zip)** · [Setup guide](docs/SETUP.md) · [Coding-agent handoff](AGENT-SETUP.md)
+
 ## What you can do
 
 - See and control your Windows desktop with touch; optionally see UAC and the lock screen.
@@ -29,7 +31,7 @@ Screenshots use the actual UI with disposable demo data. The example QR points t
 
 ## Quick setup
 
-1. Choose **Code → Download ZIP** on this repository (or clone it), then extract the entire ZIP to a permanent folder such as Desktop/DesktopPocket. Do not run inside the ZIP. Keep the folder after setup.
+1. Download the **Windows package** above (recommended), or choose **Code → Download ZIP** / clone this repository. Extract the entire ZIP to a permanent folder such as Desktop/DesktopPocket. Do not run inside the ZIP. Keep the folder after setup.
 2. Double-click **SETUP.cmd**. It checks Windows x64, installs missing Node.js LTS and Tailscale through winget if available, restores locked npm dependencies, and builds the Windows screen helper from source.
 3. Sign into **your own Tailscale account** on the PC and phone when asked. Setup automatically opens a **scan-to-set-up page** on the PC. If the phone needs Tailscale, expand that page’s download section and scan the iPhone or Android QR.
 4. Scan the large setup QR with your phone camera. It opens your private HTTPS app with the temporary enrollment code already filled in. Tap **Create passkey** and confirm with Face ID / Windows Hello. No address or code to type. Save the recovery kit with the page’s **Save recovery kit** / **Copy codes** buttons. In Safari, use Share → Add to Home Screen.
