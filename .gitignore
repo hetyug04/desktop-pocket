@@ -1,0 +1,29 @@
+# Local dependencies and generated builds
+node_modules/
+native/*.exe
+native/*.dll
+install/
+releases/
+test-output/
+
+# Per-machine state, shared files, and logs must never be published
+run/
+logs/
+*.log
+*.lnk
+.env
+.env.*
+!.env.example
+password.txt
+machine-key.txt
+passkeys.json
+vnc.json
+phone-setup.html
+phone-connect.html
+RELEASE-MANIFEST.json
+
+# OS/editor clutter
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

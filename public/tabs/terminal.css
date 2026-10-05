@@ -1,0 +1,76 @@
+@import url('/vendor/xterm/xterm.css');
+
+.term-pane { display: flex; flex-direction: column; background: #000; }
+.term-pane .term-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; flex: none;
+  padding: calc(8px + env(safe-area-inset-top, 0px)) calc(12px + env(safe-area-inset-right, 0px)) 8px calc(12px + env(safe-area-inset-left, 0px));
+}
+.term-pane .term-device {
+  display: flex; align-items: center; gap: 8px; min-width: 0; height: 36px; padding: 0 12px 0 12px; border-radius: 18px;
+  background: rgba(44, 44, 48, .72); font-size: 15px; font-weight: 600; color: var(--ink, #f4f4f6);
+}
+.term-pane .term-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.term-pane .term-chev { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; opacity: .6; }
+.term-pane .term-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: rgba(244, 244, 246, .38); }
+.term-pane .term-dot[data-state="live"] { background: #60cdff; box-shadow: 0 0 8px #60cdff; }
+.term-pane .term-dot[data-state="connecting"] { background: #ffb454; animation: term-pulse 1.1s ease-in-out infinite; }
+.term-pane .term-dot[data-state="off"] { background: #ff6b6b; }
+@keyframes term-pulse { 50% { opacity: .35; } }
+.term-pane .term-more { width: 36px; height: 36px; border-radius: 18px; display: grid; place-items: center; background: rgba(44, 44, 48, .72); flex: none; }
+.term-pane .term-more svg { width: 22px; height: 22px; } .term-more svg circle { fill: currentColor; }
+
+.term-pane .term-body { position: relative; flex: 1; min-height: 0; padding: 0 calc(6px + env(safe-area-inset-right, 0px)) 4px calc(6px + env(safe-area-inset-left, 0px)); }
+.term-pane .term-host { position: absolute; inset: 0 calc(6px + env(safe-area-inset-right, 0px)) 4px calc(6px + env(safe-area-inset-left, 0px)); }
+.term-pane .term-host .xterm { height: 100%; padding: 2px; }
+.term-pane .term-host .xterm-viewport { background: #000 !important; }
+.term-pane .term-note {
+  position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); max-width: calc(100% - 48px);
+  padding: 14px 18px; border-radius: 16px; background: rgba(30, 30, 33, .94); color: rgba(244, 244, 246, .8); text-align: center; font-size: 15px;
+}
+
+.term-pane .term-keys {
+  flex: none; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; touch-action: pan-x;
+  padding: 6px calc(8px + env(safe-area-inset-right, 0px)) 6px calc(8px + env(safe-area-inset-left, 0px));
+  background: rgba(30, 30, 33, .94); box-shadow: inset 0 .5px 0 rgba(255, 255, 255, .12);
+}
+.term-pane .term-keys::-webkit-scrollbar { display: none; }
+.term-pane .term-keys[hidden] { display: none; }
+/* The extra keys only matter while typing, so they ride on top of the iPhone keyboard and are gone otherwise. */
+html:not(.kbd-open) .term-pane .term-keys { display: none; }
+.term-pane .term-keys button { flex: none; min-width: 42px; height: 38px; padding: 0 11px; border-radius: 10px; background: rgba(255, 255, 255, .1); font: 500 15px ui-monospace, "SF Mono", Menlo, monospace; color: var(--ink, #f4f4f6); }
+.term-pane .term-keys button:active { background: rgba(255, 255, 255, .24); }
+.term-pane .term-keys button[aria-pressed="true"] { background: #60cdff; color: #00243a; }
+
+.term-pane .term-sheet-back { position: absolute; inset: 0; z-index: 20; background: rgba(0, 0, 0, .45); }
+.term-pane .term-sheet {
+  position: absolute; z-index: 21; left: 50%; bottom: 0; transform: translateX(-50%); width: min(100%, 460px); max-height: 80%; overflow-y: auto;
+  padding: 18px calc(16px + env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) calc(16px + env(safe-area-inset-left, 0px));
+  border-radius: 22px 22px 0 0; background: #1c1c1f; box-shadow: 0 -10px 40px rgba(0, 0, 0, .5); touch-action: pan-y;
+}
+.term-pane .term-sheet h2 { margin: 0 4px 12px; font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
+.term-pane .term-list { list-style: none; margin: 0; padding: 0; border-radius: 14px; overflow: hidden; background: rgba(255, 255, 255, .06); }
+.term-pane .term-list li + li { box-shadow: inset 0 .5px 0 rgba(255, 255, 255, .12); }
+.term-pane .term-list button { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 60px; padding: 10px 16px; text-align: left; color: var(--ink, #f4f4f6); }
+.term-pane .term-list button:disabled { opacity: .45; }
+.term-pane .term-list button[data-current="true"] strong { color: #60cdff; }
+.term-pane .term-list svg { width: 26px; height: 26px; flex: none; fill: currentColor; opacity: .85; }
+.term-pane .term-list strong { display: block; font-weight: 600; font-size: 16px; }
+.term-pane .term-list small { display: block; color: rgba(244, 244, 246, .5); font-size: 14px; margin-top: 1px; }
+.term-pane .term-loading { padding: 18px 16px; color: rgba(244, 244, 246, .6); }
+
+.term-pane .term-menu {
+  position: absolute; z-index: 22; right: calc(12px + env(safe-area-inset-right, 0px)); top: calc(52px + env(safe-area-inset-top, 0px));
+  display: flex; flex-direction: column; min-width: 180px; padding: 6px; border-radius: 14px; background: rgba(30, 30, 33, .97); box-shadow: 0 10px 30px rgba(0, 0, 0, .5);
+}
+.term-pane .term-menu[hidden] { display: none; }
+.term-pane .term-menu button { text-align: left; padding: 11px 12px; border-radius: 9px; font-size: 15px; color: var(--ink, #f4f4f6); }
+.term-pane .term-menu button:active { background: rgba(255, 255, 255, .08); }
+
+/* While the iPhone keyboard is up, the tab capsule steps aside and the terminal sits right on top of the keys. */
+html.kbd-open .tabbar { display: none !important; }
+/* Glass controls, matching the tab capsule. */
+.term-pane .term-device, .term-pane .term-more {
+  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04) 55%, rgba(255,255,255,.07)), rgba(36,36,42,.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.8); backdrop-filter: blur(16px) saturate(1.8);
+  box-shadow: inset 0 1px .5px rgba(255,255,255,.38), inset 0 0 0 .5px rgba(255,255,255,.14);
+}

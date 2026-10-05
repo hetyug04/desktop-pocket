@@ -1,0 +1,10 @@
+/* QR enrollment additions: no keyboard on a scanned code, readable touch targets. */
+html.pocket .phone-qr-box{text-align:center}
+html.pocket .phone-qr-box img{display:block;width:min(100%,280px);height:auto;background:#fff;border-radius:14px;margin:0 auto 18px}
+html.pocket .phone-qr-box strong{display:block;margin-bottom:8px}
+html.pocket .phone-qr-box p{line-height:1.5}
+html.pocket .phone-qr-box .button{margin-top:14px}
+html.pocket .phone-qr-box .group-help{color:var(--ink-2)}
+html.pocket #change-setup-code{width:100%;margin-bottom:12px}
+html.pocket .login{overflow-y:auto;touch-action:pan-y;align-items:safe center}
+@media(prefers-reduced-motion:reduce){html.pocket .button.is-busy .passkey-glyph{animation:none}}

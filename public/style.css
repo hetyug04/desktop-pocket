@@ -1,0 +1,449 @@
+/* Desktop Pocket stylesheet. Two designs share this file:
+   html.pocket            = the phone redesign (index.html), source: pocket.css
+   html:not(.pocket)      = the previous design, still used by full.html (full desktop mode)
+   Rebuild with build-style.py; don't edit by hand. */
+html.pocket{
+  --stage: #000;
+  --glass: rgba(44, 44, 48, .72);
+  --glass-strong: rgba(30, 30, 33, .94);
+  --hairline: rgba(255, 255, 255, .12);
+  --ink: #f4f4f6;
+  --ink-2: rgba(244, 244, 246, .64);
+  --ink-3: rgba(244, 244, 246, .38);
+  --accent: #60cdff;          
+  --accent-ink: #00243a;
+  --amber: #ffb454;
+  --red: #ff6b6b;
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+html.pocket *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html.pocket, html.pocket body{ margin: 0; height: 100%; background: var(--stage); }
+html.pocket body{
+  position: fixed; top: 0; left: 0; right: 0; height: var(--app-h, 100%); overflow: hidden; overscroll-behavior: none;
+  background: var(--stage); color: var(--ink);
+  font: 17px/1.35 var(--font); letter-spacing: -.01em;
+  -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+  touch-action: none;
+}
+html.pocket [hidden]{ display: none !important; }
+html.pocket.standalone{ height: 100lvh; overflow: hidden; }
+html.pocket.standalone body{ position: absolute; top: 0; left: 0; right: 0; bottom: auto; height: var(--app-h, 100lvh); overflow: visible; }
+html.pocket.standalone .app, html.pocket.standalone .login{ height: var(--app-h, 100lvh); }
+html.pocket :where(button){ font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+html.pocket button:focus-visible, html.pocket input:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+html.pocket svg{ display: block; }
+html.pocket .visually-hidden{ position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; opacity: 0; }
+html.pocket .button{
+  display: block; width: 100%; min-height: 52px; border-radius: 14px;
+  font-weight: 600; font-size: 17px;
+}
+html.pocket .button-primary{ background: var(--accent); color: var(--accent-ink); }
+html.pocket .button-primary:active{ filter: brightness(.88); }
+html.pocket .button:disabled{ opacity: .5; }
+html.pocket .login{
+  position: fixed; top: 0; left: 0; right: 0; height: var(--app-h, 100%); display: grid; place-items: center;
+  padding: calc(24px + var(--safe-t)) 24px calc(24px + var(--safe-b));
+  background: radial-gradient(120% 70% at 50% 0%, #10202b 0%, #000 62%);
+  touch-action: manipulation;
+}
+html.pocket .login-form{ width: min(100%, 340px); text-align: center; }
+html.pocket .login-icon{ width: 76px; height: 76px; border-radius: 18px; margin: 0 auto 20px; box-shadow: 0 10px 40px rgba(96, 205, 255, .18); }
+html.pocket .login h1{ margin: 0; font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -.02em; }
+html.pocket .login-lead{ margin: 6px 0 28px; color: var(--ink-2); }
+html.pocket .field{
+  width: 100%; height: 52px; padding: 0 16px; border-radius: 14px;
+  border: 1px solid var(--hairline); background: rgba(255, 255, 255, .07); color: var(--ink);
+  font: 17px var(--font); -webkit-user-select: text; user-select: text;
+}
+html.pocket .field::placeholder{ color: var(--ink-3); }
+html.pocket .field:focus{ outline: none; border-color: var(--accent); }
+html.pocket .login-error{ min-height: 22px; margin: 8px 0; color: var(--red); font-size: 15px; }
+html.pocket .login-note{ margin: 18px 0 0; color: var(--ink-3); font-size: 14px; }
+html.pocket .login-note + .login-note{ margin-top: 6px; }
+html.pocket .button-icon{ display: flex; align-items: center; justify-content: center; gap: 10px; }
+html.pocket .passkey-glyph{ width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+html.pocket .button.is-busy{ opacity: .6; }
+html.pocket .button.is-busy .passkey-glyph{ animation: pulse 1.1s ease-in-out infinite; }
+html.pocket .code-form{ text-align: left; }
+html.pocket .field-label{ display: block; margin: 0 4px 8px; color: var(--ink-2); font-size: 15px; font-weight: 500; }
+html.pocket .field-code{ margin-bottom: 12px; text-align: center; text-transform: uppercase; letter-spacing: .14em; font: 600 20px ui-monospace, "SF Mono", Menlo, monospace; }
+html.pocket .field-code::placeholder{ letter-spacing: .14em; }
+html.pocket .code-form .login-note{ text-align: center; }
+html.pocket .login-links{ display: flex; flex-wrap: wrap; justify-content: center; gap: 0 20px; margin-top: 4px; }
+html.pocket .link-button{ min-height: 44px; padding: 0 4px; color: var(--accent); font-size: 15px; font-weight: 500; }
+html.pocket .link-button:active{ opacity: .6; }
+html.pocket .login-foot{ margin-top: 14px; }
+html.pocket .passkey-list, html.pocket .activity-list{ list-style: none; margin: 0; padding: 0; }
+html.pocket .passkey-row .round-button{ width: 30px; height: 30px; }
+html.pocket .passkey-row span, html.pocket .activity-list .row span{ min-width: 0; }
+html.pocket .passkey-row strong, html.pocket .activity-list strong{ display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+html.pocket .activity-list .row{ min-height: 48px; }
+html.pocket .activity-list .row-warn strong{ color: var(--amber); }
+html.pocket .activity-list:empty, html.pocket .passkey-list:empty{ display: none; }
+html.pocket .cmd-box{ margin-top: 12px; padding: 14px 16px; border-radius: 14px; background: rgba(255, 255, 255, .06); }
+html.pocket .cmd-box p{ margin: 0; color: var(--ink-2); font-size: 15px; }
+html.pocket .cmd-box code{
+  display: block; margin: 8px 0 10px; padding: 10px 12px; border-radius: 10px; background: rgba(0, 0, 0, .45);
+  font: 13px/1.45 ui-monospace, "SF Mono", Menlo, monospace; word-break: break-all; -webkit-user-select: text; user-select: text;
+}
+html.pocket .cmd-box .group-help{ margin: 8px 0 0; }
+html.pocket .button-secondary{ min-height: 44px; background: rgba(255, 255, 255, .12); color: var(--ink); font-size: 16px; }
+html.pocket .app{ position: fixed; top: 0; left: 0; right: 0; height: var(--app-h, 100%); overflow: hidden; }
+html.pocket .stage{ position: absolute; inset: 0; overflow: hidden; touch-action: none; outline: none; }
+html.pocket .screen{
+  position: absolute; left: 0; top: 0; transform-origin: 0 0;
+  image-rendering: auto; background: #050505;
+  box-shadow: 0 0 0 .5px rgba(255, 255, 255, .08);
+}
+html.pocket .touch-layer{ position: absolute; inset: 0; pointer-events: none; }
+html.pocket .ripple{
+  position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%;
+  border: 2px solid var(--accent); opacity: 0; pointer-events: none;
+  animation: ripple .38s ease-out forwards;
+}
+html.pocket .ripple-right{ border-color: var(--amber); }
+@keyframes ripple { from { transform: scale(.35); opacity: .95; } to { transform: scale(1.25); opacity: 0; } }
+html.pocket .hold{ position: absolute; width: 64px; height: 64px; margin: -32px 0 0 -32px; pointer-events: none; }
+html.pocket .hold circle{ fill: none; stroke: var(--amber); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 176; stroke-dashoffset: 176; transform: rotate(-90deg); transform-origin: 50% 50%; }
+html.pocket .hold.go circle{ animation: hold-fill .33s linear .12s forwards; }
+html.pocket .hold.done circle{ stroke-dashoffset: 0; stroke: var(--amber); }
+html.pocket .hold.done{ animation: hold-pop .18s ease-out; }
+@keyframes hold-fill { to { stroke-dashoffset: 0; } }
+@keyframes hold-pop { 50% { transform: scale(1.12); } }
+html.pocket .pointer{
+  position: absolute; left: 0; top: 0; width: 22px; height: 22px; margin: -2px 0 0 -3px; pointer-events: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .6));
+}
+html.pocket .pointer svg{ width: 22px; height: 22px; }
+html.pocket .pointer path{ fill: #fff; stroke: #000; stroke-width: 1.3; stroke-linejoin: round; }
+html.pocket .status{
+  position: absolute; z-index: 5; top: calc(10px + var(--safe-t)); left: calc(12px + var(--safe-l));
+  display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px 0 10px;
+  border-radius: 16px; background: var(--glass); font-size: 14px; font-weight: 600;
+  -webkit-backdrop-filter: blur(20px) saturate(1.6); backdrop-filter: blur(20px) saturate(1.6);
+  transition: opacity .4s ease, transform .4s ease;
+}
+html.pocket .status-dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--ink-3); }
+html.pocket .status[data-state="live"] .status-dot{ background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+html.pocket .status[data-state="connecting"] .status-dot{ background: var(--amber); animation: pulse 1.1s ease-in-out infinite; }
+html.pocket .status[data-state="busy"] .status-dot{ background: var(--amber); }
+html.pocket .status[data-state="offline"] .status-dot{ background: var(--red); }
+html.pocket .status.faded{ opacity: 0; transform: translateY(-6px); pointer-events: none; }
+@keyframes pulse { 50% { opacity: .35; } }
+html.pocket .rotate-hint{
+  position: absolute; z-index: 1; left: 0; right: 0; margin: 0; padding: 0 32px;
+  text-align: center; color: var(--ink-3); font-size: 14px; pointer-events: none;
+}
+html.pocket .corner{
+  position: absolute; z-index: 6; top: calc(10px + var(--safe-t)); right: calc(12px + var(--safe-r));
+  display: flex; gap: 8px;
+}
+html.pocket .chip{
+  height: 36px; min-width: 36px; padding: 0 14px; border-radius: 18px; background: var(--glass); font-size: 14px; font-weight: 600;
+  display: grid; place-items: center; box-shadow: inset 0 0 0 .5px var(--hairline);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6); backdrop-filter: blur(20px) saturate(1.6);
+}
+html.pocket .chip-round{ width: 36px; padding: 0; }
+html.pocket .chip svg{ width: 24px; height: 24px; }
+html.pocket .chip svg circle{ fill: currentColor; }
+html.pocket #power svg{ width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+html.pocket #power[aria-pressed="true"]{ background: var(--accent); color: var(--accent-ink); }
+@media (orientation: landscape) and (max-height: 560px) {html.pocket .corner{ flex-direction: column; right: calc(8px + var(--safe-r)); top: calc(10px + var(--safe-t)); }}
+html.pocket .safe-probe{ position: absolute; visibility: hidden; pointer-events: none; padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+html.pocket .chip:active{ background: rgba(80, 80, 86, .85); }
+html.pocket .type-pill{
+  position: absolute; z-index: 6; left: 50%; bottom: max(calc(18px + var(--safe-b)), calc(var(--dock-space) + 8px)); transform: translateX(-50%);
+  display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 22px 0 16px; border-radius: 24px;
+  background: var(--accent); color: var(--accent-ink); font-weight: 650; font-size: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .45); animation: pill-in .22s cubic-bezier(.2, .9, .25, 1);
+}
+html.pocket .type-pill svg{ width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes pill-in { from { transform: translate(-50%, 16px); opacity: 0; } }
+html.pocket .secure{ position: absolute; inset: 0; z-index: 2; background: var(--stage); touch-action: none; }
+html.pocket .secure > div{ background: var(--stage) !important; }
+html.pocket{ --dock-h: 0px; --dock-space: 0px; --dock-b: max(10px, calc(var(--safe-b) - 12px)); }
+html.pocket .app.has-tabs{ --dock-h: 48px; --dock-space: calc(var(--dock-b) + var(--dock-h) + 6px); }
+html.pocket.kbd-open .app, html.pocket .app.keybar-open{ --dock-space: 0px; }
+html.pocket .tab-pane{ position: absolute; inset: 0; }
+html.pocket .tab-pane[hidden]{ display: none !important; }
+html.pocket #tab-panes > .tab-pane{ padding-bottom: var(--dock-space); }
+html.pocket .tabbar{
+  position: absolute; z-index: 7; left: 50%; bottom: var(--dock-b); transform: translateX(-50%);
+  display: flex; padding: 4px; height: var(--dock-h); border-radius: 999px; isolation: isolate;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .17) 0%, rgba(255, 255, 255, .05) 48%, rgba(255, 255, 255, .09) 100%),
+    rgba(36, 36, 42, .34);
+  -webkit-backdrop-filter: blur(16px) saturate(1.9) brightness(1.06); backdrop-filter: blur(16px) saturate(1.9) brightness(1.06);
+  box-shadow:
+    inset 0 1px .5px rgba(255, 255, 255, .45),
+    inset 0 -1px .5px rgba(255, 255, 255, .10),
+    inset 0 0 0 .5px rgba(255, 255, 255, .16),
+    0 10px 30px rgba(0, 0, 0, .40), 0 1px 3px rgba(0, 0, 0, .30);
+  transition: opacity .25s ease, transform .35s cubic-bezier(.3, 1.3, .5, 1);
+}
+html.pocket .tabbar::after{
+  content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(120% 100% at 22% -30%, rgba(255, 255, 255, .26), transparent 52%),
+              radial-gradient(90% 80% at 85% 130%, rgba(255, 255, 255, .10), transparent 60%);
+}
+html.pocket .tab-lens{
+  position: absolute; z-index: -1; left: 0; top: 0; width: 52px; height: 40px; border-radius: 999px;
+  background: rgba(255, 255, 255, .15);
+  box-shadow: inset 0 1px .5px rgba(255, 255, 255, .5), inset 0 0 0 .5px rgba(255, 255, 255, .2), 0 2px 10px rgba(0, 0, 0, .28);
+  transition: transform .45s cubic-bezier(.3, 1.35, .45, 1);
+}
+html.pocket .tabbar button{
+  position: relative; z-index: 2; display: grid; place-items: center; width: 52px; height: 40px; border-radius: 999px;
+  color: rgba(255, 255, 255, .6); transition: color .2s ease, transform .15s ease;
+}
+html.pocket .tabbar button svg{ width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+html.pocket .tabbar button span{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+html.pocket .tabbar button[aria-selected="true"]{ color: var(--accent); }
+html.pocket .tabbar button:active{ transform: scale(.88); }
+html.pocket .tabbar.mini{ padding: 4px; opacity: .78; }
+html.pocket .tabbar.mini button:not([aria-selected="true"]), html.pocket .tabbar.mini .tab-lens{ display: none; }
+html.pocket .tabbar.mini button{ width: 40px; }
+html.pocket .keybar-open .tabbar, html.pocket.kbd-open .tabbar{ display: none !important; }
+@media (orientation: landscape) and (max-height: 560px) {html.pocket .app.has-tabs{ --dock-space: 0px; }
+html.pocket .tabbar{ left: auto; right: calc(6px + var(--safe-r)); bottom: calc(10px + var(--safe-b)); transform: none; flex-direction: column; width: var(--dock-h); height: auto; }
+html.pocket .tabbar button{ width: 40px; height: 50px; }
+html.pocket .tab-lens{ width: 40px; height: 50px; }
+html.pocket .tabbar.mini button{ height: 40px; }
+html.pocket #tab-panes > .tab-pane{ right: calc(60px + var(--safe-r)); }}
+@media (prefers-reduced-transparency: reduce) {html.pocket .tabbar{ background: rgba(30, 30, 33, .96); }}
+html.pocket .notice{ position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; padding: 24px; pointer-events: none; }
+html.pocket .notice-card{
+  pointer-events: auto; width: min(100%, 320px); padding: 28px 24px 24px; border-radius: 22px; text-align: center;
+  background: var(--glass-strong); box-shadow: inset 0 0 0 .5px var(--hairline);
+}
+html.pocket .notice-card h2{ margin: 0; font-size: 20px; font-weight: 650; }
+html.pocket .notice-card p{ margin: 6px 0 0; color: var(--ink-2); font-size: 15px; }
+html.pocket .notice-card .button{ margin-top: 20px; }
+html.pocket .spinner{ width: 28px; height: 28px; margin: 0 auto 16px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, .15); border-top-color: var(--accent); animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+html.pocket .keybar{
+  position: absolute; z-index: 8; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px calc(8px + var(--safe-r)) calc(7px + var(--safe-b)) calc(8px + var(--safe-l));
+  background: var(--glass-strong); box-shadow: inset 0 .5px 0 var(--hairline);
+  -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+  will-change: transform;
+}
+html.pocket .keybar.lifted{ padding-bottom: 7px; }
+html.pocket .kb-capture{
+  position: absolute; left: 50%; top: 0; width: 1px; height: 1px; opacity: 0; border: 0; padding: 0;
+  font-size: 16px; 
+  color: transparent; background: transparent; caret-color: transparent;
+}
+html.pocket .keys{ flex: 1; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; touch-action: pan-x; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); }
+html.pocket .keys::-webkit-scrollbar{ display: none; }
+html.pocket .key{
+  flex: none; min-width: 44px; height: 40px; padding: 0 12px; border-radius: 10px;
+  background: rgba(255, 255, 255, .1); font-size: 15px; font-weight: 500;
+  display: grid; place-items: center;
+}
+html.pocket .key svg{ width: 15px; height: 15px; fill: currentColor; }
+html.pocket .key:active, html.pocket .key.pressed{ background: rgba(255, 255, 255, .24); }
+html.pocket .key-mod[aria-pressed="true"]{ background: var(--accent); color: var(--accent-ink); }
+html.pocket .key-done{ color: var(--accent); background: transparent; font-weight: 600; }
+html.pocket .sheet-backdrop{ position: absolute; inset: 0; z-index: 9; background: rgba(0, 0, 0, .45); animation: fade .2s ease; }
+html.pocket .sheet{
+  position: absolute; z-index: 10; left: 50%; bottom: 0; width: min(100%, 460px); transform: translateX(-50%);
+  max-height: calc(100% - 40px - var(--safe-t)); overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y;
+  padding: 8px calc(20px + var(--safe-r)) calc(24px + var(--safe-b)) calc(20px + var(--safe-l));
+  border-radius: 22px 22px 0 0; background: #1c1c1f; box-shadow: 0 -10px 40px rgba(0, 0, 0, .5);
+  animation: sheet-in .28s cubic-bezier(.2, .9, .25, 1);
+}
+@keyframes sheet-in { from { transform: translate(-50%, 100%); } }
+@keyframes fade { from { opacity: 0; } }
+html.pocket .sheet-grabber{ width: 36px; height: 5px; border-radius: 3px; margin: 0 auto 10px; background: rgba(255, 255, 255, .22); }
+html.pocket .sheet-head{ display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+html.pocket .sheet-head h2{ margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+html.pocket .sheet-stats{ margin: 2px 0 0; color: var(--ink-2); font-size: 15px; }
+html.pocket .round-button{ width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 255, 255, .1); display: grid; place-items: center; flex: none; }
+html.pocket .round-button svg{ width: 16px; height: 16px; stroke: var(--ink-2); stroke-width: 2.2; stroke-linecap: round; }
+html.pocket .group{ border-radius: 14px; background: rgba(255, 255, 255, .06); overflow: hidden; }
+html.pocket .group + .group, html.pocket .group-help + .group{ margin-top: 22px; }
+html.pocket .group-help + .group-actions{ margin-top: 12px; }
+html.pocket .group-title{ margin: 22px 4px 8px; font-size: 15px; font-weight: 600; color: var(--ink-2); }
+html.pocket .group-help{ margin: 8px 4px 0; color: var(--ink-3); font-size: 14px; }
+html.pocket .group-actions{ margin-top: 26px; }
+html.pocket .row{ display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 52px; padding: 10px 16px; text-align: left; }
+html.pocket .row + .row{ box-shadow: inset 0 .5px 0 var(--hairline); }
+html.pocket .row small{ display: block; color: var(--ink-3); font-size: 14px; font-weight: 400; margin-top: 1px; }
+html.pocket .row strong{ font-weight: 500; }
+html.pocket .row-button:active{ background: rgba(255, 255, 255, .08); }
+html.pocket .row-button{ color: var(--accent); }
+html.pocket .row-danger{ color: var(--red); }
+html.pocket .row-link{ color: var(--ink); text-decoration: none; }
+html.pocket .row-link:active{ background: rgba(255, 255, 255, .08); }
+html.pocket .row-link svg{ width: 18px; height: 18px; flex: none; fill: none; stroke: var(--ink-3); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+html.pocket .switch{
+  appearance: none; -webkit-appearance: none; flex: none; position: relative; width: 51px; height: 31px; margin: 0;
+  border-radius: 16px; background: rgba(120, 120, 128, .4); transition: background .2s;
+}
+html.pocket .switch::after{ content: ""; position: absolute; left: 2px; top: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, .3); transition: transform .2s; }
+html.pocket .switch:checked{ background: var(--accent); }
+html.pocket .switch:checked::after{ transform: translateX(20px); }
+html.pocket .segmented{ display: flex; padding: 3px; gap: 3px; border-radius: 12px; background: rgba(255, 255, 255, .06); }
+html.pocket .segmented button{ flex: 1; min-height: 40px; padding: 0 8px; border-radius: 9px; font-size: 15px; font-weight: 500; color: var(--ink-2); }
+html.pocket .segmented button[aria-checked="true"]{ background: rgba(255, 255, 255, .16); color: var(--ink); font-weight: 600; }
+html.pocket .segmented button:disabled{ opacity: .45; }
+html.pocket .coach{ position: absolute; inset: 0; z-index: 11; display: grid; place-items: center; padding: 24px; background: rgba(0, 0, 0, .6); animation: fade .25s ease; }
+html.pocket .coach-card{ width: min(100%, 360px); max-height: 100%; overflow-y: auto; padding: 26px 22px 22px; border-radius: 24px; background: #1c1c1f; box-shadow: inset 0 0 0 .5px var(--hairline); }
+html.pocket .coach-card h2{ margin: 0 0 14px; font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+html.pocket .coach-list{ list-style: none; margin: 0 0 22px; padding: 0; }
+html.pocket .coach-list li{ display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 12px; padding: 9px 0; }
+html.pocket .coach-list li + li{ box-shadow: inset 0 .5px 0 var(--hairline); }
+html.pocket .coach-list svg{ width: 44px; height: 44px; }
+html.pocket .coach-list .g-finger{ fill: rgba(96, 205, 255, .16); stroke: var(--accent); stroke-width: 1.6; }
+html.pocket .coach-list .g-path{ fill: none; stroke: var(--ink-3); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 2 3; }
+html.pocket .coach-list .g-hold{ fill: none; stroke: var(--amber); stroke-width: 2; }
+html.pocket .coach-list strong{ display: block; font-weight: 600; font-size: 16px; }
+html.pocket .coach-list span{ color: var(--ink-2); font-size: 15px; }
+html.pocket .toast{
+  position: fixed; z-index: 12; left: 50%; top: calc(54px + var(--safe-t)); transform: translateX(-50%);
+  max-width: calc(100% - 32px); padding: 10px 16px; border-radius: 14px;
+  background: var(--glass-strong); font-size: 15px; text-align: center; box-shadow: 0 6px 24px rgba(0, 0, 0, .4);
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); animation: fade .2s ease;
+}
+@media (prefers-reduced-motion: reduce) {html.pocket *, html.pocket *::before, html.pocket *::after{ animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; }}
+
+html:not(.pocket){color-scheme:dark;--bg:#101119;--surface:#1b1d28;--raised:#252837;--border:#3b4054;--text:#f1f2f8;--muted:#b5bbce;--accent:#a6a9ff;--accent-ink:#171732;--green:#8ee8be;--danger:#ffaaa9;--radius:16px;--fast:160ms;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px;background:var(--bg);color:var(--text)}
+html:not(.pocket) *{box-sizing:border-box}
+html:not(.pocket) body{margin:0}
+html:not(.pocket) button, html:not(.pocket) input, html:not(.pocket) select{font:inherit}
+html:not(.pocket) button, html:not(.pocket) select{cursor:pointer}
+html:not(.pocket) button{min-height:44px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:10px;padding:10px 15px;touch-action:manipulation;transition:background var(--fast),border-color var(--fast);white-space:nowrap}
+html:not(.pocket) button:hover:not(:disabled){background:var(--raised);border-color:var(--accent)}
+html:not(.pocket) button:active:not(:disabled){background:var(--border)}
+html:not(.pocket) button:disabled{opacity:.42;cursor:not-allowed}
+html:not(.pocket) .primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:650}
+html:not(.pocket) .primary:hover:not(:disabled){background:#bdc0ff}
+html:not(.pocket) .primary.controlling{background:var(--raised);color:var(--green);border-color:var(--green)}
+html:not(.pocket) button:focus-visible, html:not(.pocket) input:focus-visible, html:not(.pocket) select:focus-visible, html:not(.pocket) .stage:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+html:not(.pocket) input, html:not(.pocket) select{width:100%;min-height:48px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);padding:12px}
+html:not(.pocket) label{display:block;font-size:.875rem;font-weight:600;margin:16px 0 8px}
+html:not(.pocket) svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+html:not(.pocket) button svg{width:20px;height:20px;vertical-align:middle;margin-right:6px}
+html:not(.pocket) [hidden]{display:none!important}
+html:not(.pocket) .login-page{min-height:100svh;display:grid;place-items:center;padding:40px 24px;padding-top:max(40px,env(safe-area-inset-top));background:radial-gradient(ellipse at 50% 0%,#242441 0,transparent 55%)}
+html:not(.pocket) .login-card{width:100%;max-width:400px}
+html:not(.pocket) .brand-mark{width:64px;height:64px;background:var(--accent);color:var(--accent-ink);border-radius:20px;padding:14px;margin-bottom:32px}
+html:not(.pocket) .brand-mark svg{width:100%;height:100%}
+html:not(.pocket) .eyebrow{font-size:.6875rem;color:var(--accent);font-weight:650;letter-spacing:.18em}
+html:not(.pocket) h1{font-size:2.35rem;letter-spacing:-.055em;line-height:1.12;margin:12px 0 16px}
+html:not(.pocket) p{line-height:1.6}
+html:not(.pocket) .lead{color:var(--muted);margin-bottom:32px}
+html:not(.pocket) .login-card form{margin-top:24px}
+html:not(.pocket) .login-card .primary{width:100%;display:flex;justify-content:space-between;align-items:center;margin-top:12px;min-height:52px}
+html:not(.pocket) .form-error{color:var(--danger);font-size:.875rem;min-height:24px;margin:8px 0}
+html:not(.pocket) .private-note{display:flex;gap:8px;align-items:center;font-size:.8125rem;color:var(--muted);margin-top:28px}
+html:not(.pocket) .private-note svg{width:18px;height:18px;color:var(--green)}
+html:not(.pocket) .install-note{color:var(--muted);font-size:.75rem;margin-top:20px}
+html:not(.pocket) .app{height:100dvh;min-height:560px;display:flex;flex-direction:column;max-width:1680px;margin:0 auto;padding:0 24px;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+html:not(.pocket) .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:88px;flex-shrink:0}
+html:not(.pocket) .brand{display:flex;gap:12px;align-items:center}
+html:not(.pocket) .brand svg{width:36px;height:36px;color:var(--accent)}
+html:not(.pocket) .brand strong{display:block;letter-spacing:-.025em}
+html:not(.pocket) .brand span{display:block;color:var(--muted);font-size:.75rem;margin-top:4px}
+html:not(.pocket) .header-actions{display:flex;align-items:center;gap:12px}
+html:not(.pocket) .icon-button{width:44px;padding:10px}
+html:not(.pocket) .icon-button svg{margin:0}
+html:not(.pocket) .status{font-size:.75rem;color:var(--muted);display:flex;gap:6px;align-items:center;white-space:nowrap}
+html:not(.pocket) .status:before{content:"";width:6px;height:6px;background:var(--muted);border-radius:50%}
+html:not(.pocket) .status.live{color:var(--green)}
+html:not(.pocket) .status.live:before{background:var(--green)}
+html:not(.pocket) .workspace{display:flex;flex-direction:column;flex:1;min-height:220px;background:#090a10;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+html:not(.pocket) .screen-bar{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 16px;color:var(--muted);font-size:.75rem;background:var(--surface);flex-shrink:0}
+html:not(.pocket) .stage{flex:1;position:relative;overflow:hidden;min-height:140px;touch-action:none;user-select:none;-webkit-user-select:none;overscroll-behavior:none;cursor:crosshair}
+html:not(.pocket) .stage canvas{position:absolute;transform-origin:0 0;pointer-events:none}
+html:not(.pocket) .screen-overlay{position:absolute;inset:0;display:grid;place-items:center;background:rgba(9,10,16,.92);padding:24px;text-align:center;z-index:2}
+html:not(.pocket) .screen-overlay svg{width:48px;height:48px;color:var(--muted)}
+html:not(.pocket) .screen-overlay h2{font-size:1.1rem;letter-spacing:-.02em}
+html:not(.pocket) .screen-overlay p{color:var(--muted);font-size:.875rem;max-width:380px}
+html:not(.pocket) .view-badge{position:absolute;top:12px;left:12px;background:rgba(16,17,25,.9);color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:.6875rem;pointer-events:none}
+html:not(.pocket) .view-badge.active{color:var(--green);border-color:var(--green)}
+html:not(.pocket) .viewport-bar{display:flex;gap:12px;justify-content:space-between;align-items:center;padding:8px 12px;font-size:.6875rem;color:var(--muted);background:var(--surface);flex-shrink:0}
+html:not(.pocket) .zoom-controls{display:flex;gap:8px}
+html:not(.pocket) .zoom-controls button{min-width:44px;padding:5px 10px;border-color:transparent;background:transparent}
+html:not(.pocket) .tap-ring{position:absolute;width:28px;height:28px;border:2px solid var(--accent);border-radius:50%;pointer-events:none;opacity:0;z-index:1}
+html:not(.pocket) .tap-ring.show{animation:tap 320ms ease-out}
+@keyframes tap{0%{opacity:1;transform:scale(.6)}100%{opacity:0;transform:scale(1.3)}}
+html:not(.pocket) .control-deck{flex-shrink:0;padding:16px 0 4px}
+html:not(.pocket) .control-top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+html:not(.pocket) .segmented{display:flex;gap:4px;background:var(--surface);padding:4px;border-radius:12px}
+html:not(.pocket) .segmented button{border:0;background:transparent;font-size:.8125rem;padding:8px 14px}
+html:not(.pocket) .segmented button[aria-pressed=true]{background:var(--raised);color:var(--accent)}
+html:not(.pocket) .quick-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+html:not(.pocket) .quick-controls button{font-size:.8125rem;flex:1}
+html:not(.pocket) .quick-controls [aria-pressed=true]{border-color:var(--accent);color:var(--accent)}
+html:not(.pocket) .footnote{color:var(--muted);font-size:.6875rem;margin:10px 0;text-align:center}
+html:not(.pocket) .keyboard-panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px;margin-top:12px;max-height:35dvh;overflow:auto}
+html:not(.pocket) .keyboard-panel label{margin:0 0 8px}
+html:not(.pocket) .text-row{display:flex;gap:8px}
+html:not(.pocket) .text-row input{min-width:0}
+html:not(.pocket) .key-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+html:not(.pocket) .key-row button{min-width:44px;font-size:.8125rem;flex:1}
+html:not(.pocket) .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:max(24px,env(safe-area-inset-bottom));max-width:calc(100% - 32px);width:max-content;background:var(--raised);border:1px solid var(--border);box-shadow:0 12px 40px #0008;border-radius:12px;padding:12px 18px;font-size:.875rem;z-index:10}
+html:not(.pocket) dialog{color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:20px;max-width:480px;width:calc(100% - 32px);max-height:calc(100dvh - 48px);padding:24px;overflow:auto}
+html:not(.pocket) dialog::backdrop{background:#000b}
+html:not(.pocket) .dialog-heading{display:flex;gap:8px;align-items:center;justify-content:space-between}
+html:not(.pocket) .dialog-heading h2{font-size:1.2rem;margin:0}
+html:not(.pocket) .dialog-heading button{font-size:24px;min-width:44px;padding:0}
+html:not(.pocket) .hint{color:var(--muted);font-size:.8125rem}
+html:not(.pocket) .help{border-top:1px solid var(--border);margin-top:24px;padding-top:12px}
+html:not(.pocket) .help h3{font-size:.9375rem}
+html:not(.pocket) dl{font-size:.8125rem;line-height:1.6}
+html:not(.pocket) dt{font-weight:650;margin-top:12px}
+html:not(.pocket) dd{color:var(--muted);margin:2px 0 0}
+html:not(.pocket) dialog>button{margin:8px 8px 0 0}
+html:not(.pocket) .danger{color:var(--danger)}
+@media(max-width:600px){html:not(.pocket) .app{padding-left:12px;padding-right:12px;min-height:480px}
+html:not(.pocket) .topbar{min-height:76px}
+html:not(.pocket) .brand{gap:8px}
+html:not(.pocket) .brand strong{font-size:.875rem}
+html:not(.pocket) .brand svg{width:28px;height:28px}
+html:not(.pocket) .header-actions{gap:8px}
+html:not(.pocket) .screen-bar{padding:10px 12px}
+html:not(.pocket) .control-deck{padding-top:12px}
+html:not(.pocket) .control-top{gap:8px;flex-wrap:wrap}
+html:not(.pocket) .segmented{flex:1}
+html:not(.pocket) .segmented button{flex:1;padding:8px 10px}
+html:not(.pocket) .control-top>.primary{flex:1;min-width:130px;font-size:.8125rem}
+html:not(.pocket) .viewport-bar{gap:8px;padding:4px 8px}
+html:not(.pocket) .zoom-controls{gap:0}
+html:not(.pocket) .zoom-controls button{padding:5px 8px}
+html:not(.pocket) .quick-controls button{padding:8px 10px}
+html:not(.pocket) .quick-controls button:first-child{flex-basis:100px}
+html:not(.pocket) .footnote{font-size:.625rem}
+html:not(.pocket) .login-page{padding:32px 24px}}
+@media(max-height:500px) and (orientation:landscape){html:not(.pocket) .app{min-height:100dvh;padding:0 12px}
+html:not(.pocket) .topbar{min-height:52px}
+html:not(.pocket) .brand span, html:not(.pocket) .footnote, html:not(.pocket) .screen-bar{display:none}
+html:not(.pocket) .control-deck{padding:6px 0}
+html:not(.pocket) .quick-controls{margin-top:6px}
+html:not(.pocket) .control-top .segmented{max-width:280px}
+html:not(.pocket) .control-top>.primary{max-width:200px}
+html:not(.pocket) .workspace{min-height:100px}
+html:not(.pocket) .keyboard-panel{position:fixed;bottom:8px;left:12px;right:12px;max-height:60dvh;z-index:4}
+html:not(.pocket) .viewport-bar #gesture-hint{display:none}}
+@media(prefers-reduced-motion:reduce){html:not(.pocket) *{transition:none!important;animation:none!important}
+html:not(.pocket) .tap-ring.show{opacity:.8}}
+html:not(.pocket) .zoom-controls button svg{margin:0}
+html:not(.pocket) .app.immersive{position:relative;padding:0;min-height:100dvh}
+html:not(.pocket) .app.immersive .topbar, html:not(.pocket) .app.immersive .screen-bar{display:none}
+html:not(.pocket) .app.immersive .workspace{position:relative;border:0;border-radius:0;min-height:100dvh}
+html:not(.pocket) .app.immersive .viewport-bar{position:absolute;bottom:max(12px,env(safe-area-inset-bottom));right:max(12px,env(safe-area-inset-right));z-index:3;border:1px solid var(--border);border-radius:12px;background:rgba(27,29,40,.95)}
+html:not(.pocket) .app.immersive #gesture-hint{display:none}
+html:not(.pocket) .app.immersive .control-deck{position:absolute;bottom:76px;left:12px;right:12px;padding:0;z-index:4}
+html:not(.pocket) .app.immersive .control-top, html:not(.pocket) .app.immersive .quick-controls, html:not(.pocket) .app.immersive .footnote{display:none}
+html:not(.pocket) .app.immersive .keyboard-panel{position:static;margin:0}
+html:not(.pocket) .app.immersive .view-badge{top:max(12px,env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left))}
+

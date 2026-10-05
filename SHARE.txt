@@ -1,0 +1,11 @@
+Send DesktopPocket-Windows.zip. Do NOT send your installed app folder or any security/runtime files.
+
+Your friend extracts the ZIP and double-clicks SETUP.cmd. A QR setup page opens automatically: scan with the phone, tap Create passkey, confirm with Face ID. No app address or setup code to type.
+
+Or give their coding agent this exact prompt:
+
+“Set up Desktop Pocket from this extracted folder on my Windows PC. Read AGENT-SETUP.md and README.md first, check the release manifest, then run setup.ps1. Use my own Tailscale account and phone, generate my own machine key, and enroll my own passkey. Keep it tailnet-only and do not use Funnel or weaken UAC/authentication. Ask me to do interactive Tailscale/passkey/UAC steps. Verify it works and display my scan-to-open/setup QR instead of asking me to type URLs or codes. If I want UAC-screen access, use the provided verified full-desktop setup.”
+
+SETUP.cmd checks/install prerequisites and starts normal desktop, Terminal, Files and Clipboard.
+enable-full-desktop.cmd is the optional UAC/lock-screen service setup.
+START.cmd / STOP.cmd / STATUS.cmd handle daily use.
